@@ -22,7 +22,7 @@ func Load() {
 		log.Fatal(err)
 	}
 
-	Port, err = strconv.Atoi(os.Getenv("Port"))
+	Port, err = strconv.Atoi(os.Getenv("PORT"))
 	if err != nil {
 		Port = 9000
 	}
