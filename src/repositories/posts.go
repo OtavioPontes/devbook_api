@@ -65,13 +65,12 @@ func (repository Posts) GetPostById(id uint64) (models.Post, error) {
 
 func (repository Posts) GetPosts(id uint64) ([]models.Post, error) {
 	lines, err := repository.db.Query(`
-	select distinct p.*, u.nick from
-	posts p inner join users u
-	on u.id = p.author_id inner join followers s 
-	on p.author_id = s.user_id 
+	select distinct p.*, u.nick from posts p 
+	join users u on u.id = p.author_id 
+	left join followers s on p.author_id = s.user_id 
 	where u.id = ? or s.follower_id = ?
-	order by 1 desc
-	`, id, id)
+	order by 1 desc`,
+		id, id)
 	if err != nil {
 		return nil, err
 	}

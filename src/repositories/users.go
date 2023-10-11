@@ -192,7 +192,7 @@ func (repository Users) UnfollowUser(followerId, userId uint64) error {
 	}
 	defer statement.Close()
 
-	_, err = statement.Exec(userId, followerId)
+	_, err = statement.Exec(followerId, userId)
 
 	if err != nil {
 		return err
